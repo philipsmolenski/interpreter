@@ -1,0 +1,11 @@
+// break bez pętli
+
+int a = 3;
+int b = 5;
+
+break;
+
+print (a + b);
+
+// DYNAMIC ERROR: Break statement outside loop
+

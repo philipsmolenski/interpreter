@@ -1,0 +1,11 @@
+// funkcja f przyjmuje string, a powinna int
+
+int f (int a) {
+  print (a);
+}
+
+string s = "123";
+
+f(s);
+
+// STATIC ERROR: Bad types of arguments provided to function Ident "f"

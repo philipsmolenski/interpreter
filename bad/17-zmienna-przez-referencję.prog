@@ -1,0 +1,10 @@
+// Zmienną przekazywaną przez referencję może być tylko identyfikator zmiennej (a nie np. liczba, jak poniżej)
+
+void f (int *a) {
+  a++;
+  print (a);
+}
+
+f(7);
+
+//STATIC ERROR: Bad argument (not identificator) passed by reference in function f

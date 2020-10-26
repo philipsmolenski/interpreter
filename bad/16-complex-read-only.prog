@@ -1,0 +1,13 @@
+// Tutaj przykład ciekawego buga, którego znalazłem i naprawiłem. Gdy trzymałem osobno środowiska dla zmiennych, funkcji i wyjątków, to w środowisku mogły istnieć jednocześnie funkcje i zmienne o tej samej nazwie. Ponadto, zadeklarowanie funkcji o jakimś identyfikatorze zdejmowało z tego identyfikatora znacznik read-only. W efekcie można było zhackować program deklarując funkcję o tej samej nazwie, co zmienna read-only, a następnie zmienić wartość wciąż widocznej zmiennej. Sytuację ilustruję poniższy przykład, gdzie zmienna i wypisywała się nadpisana zmienna. Po poprawce identyfikatory zarówno zmiennych, funkcji jak i wyjątków trzymane sa na jednej mapie i przysłaniają się one nawzajem, dzięki czemu wyżej opisany błąd nie wystąpi.
+
+for (int i = 1:10) {
+  int i(int a) {
+    return a;
+  }
+    
+  i = i + 100;
+  print(i);
+}
+
+// DYNAMIC ERROR: Variable i is undefined
+

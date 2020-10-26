@@ -1,0 +1,14 @@
+// Funkcja f przyjmuje 3 argumenty, a powinna 2
+
+int f (int a, int b) {
+  return a + b;
+}
+
+int x = 3;
+int y = 5;
+int z = 7;
+
+int wyn = f(x, y, z);
+
+//STATIC ERROR: Too many arguments in function f
+

@@ -1,0 +1,7 @@
+// dodawanie boola i inta
+
+int a = 3;
+bool b = true;
+print (a + b);
+
+// STATIC ERROR: Add operator applied to non-integer arguments

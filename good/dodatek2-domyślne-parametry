@@ -1,0 +1,33 @@
+// Przykłady z deklaracji ilustrujący działanie domyślnych parametrów
+// Przykład ilustrujący złą kolejność argumentów znajduje się w bad7
+
+int x;
+int y;
+void f (int z default x + y) {
+    x = x + 1;
+    y = y + z;
+}
+
+x = 0;
+y = 0;
+
+f(3);
+print ("x = ", x, ", y = ", y);
+f();
+print ("x = ", x, ", y = ", y);
+f();
+print ("x = ", x, ", y = ", y);
+
+// x = 1, y = 3
+// x = 2, y = 7
+// x = 3, y = 16
+
+void f (int n default 3, int m default 5) {
+    print (n);
+    print (m);
+}
+
+f(10);
+
+//10
+//5

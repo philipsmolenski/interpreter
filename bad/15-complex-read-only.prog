@@ -1,0 +1,19 @@
+// Jeżeli zmienna jest read-only, to można zadeklarować zmienną o tej samej nazwie i ją modyfikować, jednak gdy zasięg nowej zmiennej się skończy, to identyfikator wskazuje znowu na zmienną pętli przez co nie można go modyfikować
+
+for (int i = 1:10) {
+  if (i == 1) {
+    int i = 9;
+    i++ ;
+    print ("takie coś jest ok: ", i);
+  }
+  else {
+    i++;
+    print ("takie coś nie jest ok", i);
+  }
+}
+
+// takie coś jest ok: 10
+// DYNAMIC ERROR: Cannot override read-only value: i
+
+    
+

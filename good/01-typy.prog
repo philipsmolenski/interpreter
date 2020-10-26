@@ -1,0 +1,43 @@
+// typy zmiennych: int, bool, string, void oraz exception (chociaż nie wiem, na ile ten ostatni można zaliczyć do typów);
+
+int a = 3;
+bool b = true;
+string s = "kot";
+
+print (a," " ,b ," " ,s ," " ,3 + 4 ," " ,"rab" ++ "arbar" ," " ,7 > 2);
+
+// 3 True kot 7 rabarbar True
+
+
+// funkcje i ich argumenty, też mogą być każdego z podanych typów, funkcje typu void nie potrzebują instrukcji return
+
+void f(bool b, int x, int y) {
+  if (b)
+    print(x + y);
+  else 
+    print (x - y);
+}
+
+f(true, 5, 3);
+f(false, 5, 3);
+
+// 8
+// 2
+
+
+// przykład użycia wyjątku
+
+exception x;
+exception y;
+int i = 0;
+
+try {
+  while (true) {
+    i++;
+    throw y(2 * i);
+    throw x(i);
+  }
+} catch x(10) 
+    print (i);
+
+// 10

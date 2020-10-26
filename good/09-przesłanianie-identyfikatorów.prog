@@ -1,0 +1,45 @@
+// Przesłanianie identyfikatorów ilustruje poniższy przykład:
+
+int x = 3;
+
+{
+  int x = 5;
+  x++;
+  print(x);
+}
+
+print(x);
+
+//6
+//3
+
+// Statyczne wiązanie przedstawia poniższy przykład:
+
+int x = 3;
+
+void f() {
+  print(x);
+}
+
+{
+  int x = 5;
+  f();
+}
+
+// 3
+
+//Dla porównanie, kiedy włączymy wiązania dynamiczne w definicjach:
+
+dynamic on;
+void g() {
+  print (x);
+}
+
+{
+  int x = 5;
+  g();
+}
+
+//5
+
+

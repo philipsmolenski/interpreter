@@ -1,0 +1,17 @@
+// Przykład z typowaniem przy funkcji dynamiczej, który omawialiśmy na konsultacjach
+
+int b = 4;
+
+dynamic on;
+
+void f () {
+    b++;
+    print(b);
+}
+
+{
+    bool b = true;
+    f();
+}
+
+// STATIC ERROR: Incr operator applied to non-integer value b

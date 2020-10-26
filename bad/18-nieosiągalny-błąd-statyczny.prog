@@ -1,0 +1,11 @@
+//Błędy statyczne są wyłapywane też w nieosiągalnych gałęziach ifów oraz za nieskończonymi pętlami while (jest to wynik tego, że nie wyliczamy w trakcie statycznej kontroli warunków ifa ani pętli, dięki temu kontrola statyczna nigdy się nie zapętla).
+
+int i = 1;
+
+while (i > 0) {
+  i++;
+}
+
+i = "pies";
+
+//STATIC ERROR: Cannot assign expression of different type to variable i

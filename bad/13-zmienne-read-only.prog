@@ -1,0 +1,7 @@
+// zmienna w pętli for jest read-only
+
+for (int i = 1 : 10) {
+  i = 5;
+}
+
+// DYNAMIC ERROR: Cannot override read-only value: i

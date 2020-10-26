@@ -1,0 +1,62 @@
+// Przykłady z deklaracji ilustrujące przełączanie między dynamicznym a statycznym trybem deklaracji funkcji
+
+int x = 5;
+void f () {
+  x = x + 1;
+}
+
+dynamic on;
+void g () {
+  x = 2 * x;
+}
+
+{
+  int x = 5;
+  f();
+  g();
+
+  print("Zmienna w środku: ", x);
+}
+
+print("Zmienna na zewnątrz: ", x);
+
+// Zmienna w środku: 10
+// Zmienna na zewnątrz: 6
+
+dynamic on;
+
+{
+  dynamic off;
+}
+
+// Tutaj mała zmiana, w deklaracji napisałem, że o tym, czy deklarujemy w trybie statycznym czy dynamicznym decyduje ostatnia z wykonanych funkcji dynamic on / dynamic off. Takie zachowanie utrudniałoby jednak znacznie statyczną kontrolę typów, więc to w jakim trybie deklarujemy decyduje się w sposób "środowiskowy" (tzn. zmiana dynamic on / dynamic off ma swój zasięg i po wyjściu ze scopa jest zapominana). Przykład niżej:
+
+void h () {
+  x = 2 * x;
+}
+
+{
+  int x = 50;
+  h();
+  print("Zmienna wewnątrz po pomnożeniu przez 2: ", x);
+}
+
+
+// Zmienna wewnątrz po pomnożeniu przez 2: 100
+
+
+// Jeszcze przykład pokazujący, że funkcja dynamiczna nie musi się typować w środowisku deklaracji.
+
+bool b = true;
+
+void f() {
+  b++;
+  print (b);
+}
+
+{
+  int b = 3;
+  f();
+}
+
+// 4

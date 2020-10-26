@@ -1,0 +1,40 @@
+// if można wykonać z elsem lub bez
+
+for (int i = 1:10) {
+  if (i > 4)
+    print("Większe od 4: ", i);
+
+  if (i % 2 == 0) 
+    print("Parzyste: ", i);
+  
+  else 
+    print("Nieparzyste: ", i);
+
+}
+
+// Nieparzyste: 1
+// Parzyste: 2
+// Nieparzyste: 3
+// Parzyste: 4
+// Większe od 4: 5
+// Nieparzyste: 5
+// Większe od 4: 6
+// Parzyste: 6
+// Większe od 4: 7
+// Nieparzyste: 7
+// Większe od 4: 8
+// Parzyste: 8
+// Większe od 4: 9
+// Nieparzyste: 9
+
+// W przypadku konfliktu, else dopasuje się do bardziej wewnętrznego ifa
+
+
+if (true) 
+
+  if (false) 
+    print ("true-false");
+
+  else print ("true-true");
+
+// true-true

@@ -1,0 +1,10 @@
+// to samo, co w bad 11
+
+int a = 3;
+int b = 0;
+
+int c = a / b;
+
+print (c);
+
+// DYNAMIC ERROR: Division by 0

@@ -1,0 +1,9 @@
+// f jest typu int a nic zwraca bool
+
+int f (int a) {
+  return a > 0;
+}
+
+print (f(7));
+
+// STATIC ERROR: Function f returns value of bad type

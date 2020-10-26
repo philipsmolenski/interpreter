@@ -1,0 +1,91 @@
+// Przykłady z deklaracji ilustrujące działanie wyjątków z wagami:
+
+int y = 100;
+exception x;
+try {
+  while (true) {
+    throw x(y - 10);
+    y = y + 1;
+  }
+}catch x(y)
+  print (y);
+
+// 110
+
+  exception x;
+int i = 0;
+int j = 0;
+try {
+  try {
+    while (true) {
+      j = j + 1;
+      i = i + 1;
+      throw x(i);
+    }
+  } catch x(5) {
+    print (j);
+    while (true) {
+      j = j + 2;
+      i = i + 1;
+      throw x(i);
+    }
+  }
+} catch x(10) { 
+  print(j);
+}
+
+// 5
+// 15
+
+// Warto podkreślić też, że wyjątki propagują się też w wyrażeniach, to znaczy, jeśli przypisujemy zmiennej wartość zwracaną przez funkcję, a wewnątrz funkcji nastąpi wyjątek, to evaluacja wyrażenia przechowuje informację o tym, że nastąpił wyjątek. Fakt ten ilustruje następujący przykład:
+
+exception x;
+
+int k;
+
+try {
+  int f (int n) {
+    throw x(n);
+    return n;
+  }
+  
+  for (int i = 0:10) {
+    k = f(i);
+    print(k);
+  }
+}catch x(5){
+    print ("Wyjątek złapany dla k= ", k);
+}
+
+
+// 0
+// 1
+// 2
+// 3
+// 4
+//Wyjątek złapany dla k= 4
+
+// Gdybyśmy chcieli w powyższym przypadku wyciągnąć funkcję f poza blok try-catch, możemy to zrobić - pamiętać należy jednak o zadeklarowaniu jej dynamicznej wersji (w przeciwnym wypadku minimalna waga łapania wyjątku nie będzie widoczna w środowisku funkcji i pętla wykona się cała).
+
+dynamic on;
+
+int f (int n) {
+  throw x(n);
+  return n;
+}
+
+try {  
+  for (int i = 0:10) {
+    k = f(i);
+    print(k);
+  }
+}catch x(5){
+    print ("Wyjątek złapany dla k= ", k);
+}
+
+// 0
+// 1
+// 2
+// 3
+// 4
+//Wyjątek złapany dla k= 4

@@ -1,0 +1,11 @@
+// Funkcja typu innego niż void bez instrukcji return
+
+int f(int a) {
+  a++;
+  print(a);
+}
+
+f(7);
+
+//8
+//DYNAMIC ERROR: Non-void function f terminates without return statement

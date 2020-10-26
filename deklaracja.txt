@@ -1,0 +1,433 @@
+-- programs ------------------------------------------------
+
+entrypoints Program ;
+
+Program.   Program ::= [Stmt] ;
+
+-- statements ----------------------------------------------
+
+separator  Stmt "" ;
+
+Empty.     Stmt ::= ";" ;
+
+BStmt.     Stmt ::= "{" [Stmt] "}" ;
+
+Decl.      Stmt ::= Type Item ";" ;
+
+FunDecl.   Stmt ::= Type Ident "(" [Arg] ")" "{" [Stmt] "}" ;
+
+ExDecl.    Stmt ::= "exception" Ident ";" ;
+
+ValArg.    Arg ::= Type Ident ; 
+
+VarArg.    Arg ::= Type "*" Ident;
+
+DefArg.    Arg ::= Type Ident "default" Expr ;
+
+separator  Arg "," ;
+
+NoInit.    Item ::= Ident ; 
+
+Init.      Item ::= Ident "=" Expr ;
+
+Tab.       Item ::= Ident "[" Expr "]" ;
+
+Ass.       Stmt ::= Ident "=" Expr  ";" ;
+
+Incr.      Stmt ::= Ident "++"  ";" ;
+
+Decr.      Stmt ::= Ident "--"  ";" ;
+
+AssTab.    Stmt ::= Ident "[" Expr "]" "=" Expr ";" ;
+
+Ret.       Stmt ::= "return" Expr ";" ;
+
+VRet.      Stmt ::= "return" ";" ;
+
+Cond.      Stmt ::= "if" "(" Expr ")" Stmt  ;
+
+CondElse.  Stmt ::= "if" "(" Expr ")" Stmt "else" Stmt  ;
+
+While.     Stmt ::= "while" "(" Expr ")" Stmt ;
+
+For.       Stmt ::= "for" "(" Type Ident "=" Expr ":" Expr ")" Stmt ;
+
+SPrint.    Stmt ::=  "print" "(" [Expr] ")" ";" ;
+
+Cont.      Stmt ::= "continue" ";" ;
+
+Brk.     Stmt ::= "break" ";" ;
+
+DynOn.     Stmt ::= "dynamic" "on" ";" ;
+
+DynOff.    Stmt ::= "dynamic" "off" ";" ;
+
+Except.    Stmt ::= "try" Stmt "catch" Ident "(" Expr ")" Stmt ;
+
+Throw.     Stmt ::= "throw" Ident "(" Expr ")" ";" ;
+
+Call.      Stmt ::= Ident "(" [Expr] ")"  ";" ;
+
+-- Types ---------------------------------------------------
+
+Int.       Type ::= "int" ;
+
+Str.       Type ::= "string" ;
+
+Bool.      Type ::= "bool" ;
+
+TInt.       Type ::= "int" "[" "]" ;
+
+TStr.       Type ::= "string" "[" "]" ;
+
+TBool.      Type ::= "bool" "[" "]" ;
+
+Void.      Type ::= "void" ;
+
+internal   Fun. Type ::= Type "(" [Type] ")" ;
+
+separator  Type "," ;
+
+-- Expressions ---------------------------------------------
+
+EVar.      Expr6 ::= Ident ;
+
+ELitInt.   Expr6 ::= Integer ;
+
+ELitTrue.  Expr6 ::= "true" ;
+
+ELitFalse. Expr6 ::= "false" ;
+
+EApp.      Expr6 ::= Ident "(" [Expr] ")" ;
+
+EString.   Expr6 ::= String ;
+
+ETab.      Expr6 ::= Ident "[" Expr "]" ;
+
+Neg.       Expr5 ::= "-" Expr6 ;
+
+Not.       Expr5 ::= "!" Expr6 ;
+
+EMul.      Expr4 ::= Expr4 MulOp Expr5 ;
+
+EAdd.      Expr3 ::= Expr3 AddOp Expr4 ;
+
+ECon.      Expr3 ::= Expr3 "++" Expr4 ;
+
+ERel.      Expr2 ::= Expr2 RelOp Expr3 ;
+
+EAnd.      Expr1 ::= Expr2 "&&" Expr1 ;
+
+EOr.       Expr ::= Expr1 "||" Expr ;
+
+coercions  Expr 6 ;
+
+separator  Expr "," ;
+
+-- operators -----------------------------------------------
+
+Plus.      AddOp ::= "+" ;
+
+Minus.     AddOp ::= "-" ;
+
+Times.     MulOp ::= "*" ;
+
+Div.       MulOp ::= "/" ;
+
+Mod.       MulOp ::= "%" ;
+
+LTH.       RelOp ::= "<" ;
+
+LE.        RelOp ::= "<=" ;
+
+GTH.       RelOp ::= ">" ;
+
+GE.        RelOp ::= ">=" ;
+
+EQU.       RelOp ::= "==" ;
+
+NE.        RelOp ::= "!=" ;
+
+-- comments ------------------------------------------------
+
+comment    "#" ;
+
+comment    "//" ;
+
+comment    "/*" "*/" ;
+
+Gramatyka wzorowana na gramatyce języka Latte:
+https://www.mimuw.edu.pl/~ben/Zajecia/Mrj2019/Latte/Latte.cf
+
+Jedyny konflikt shift-reduce to standardowy konflikt między if i if-else
+
+istotne zmiany to: dodanie konkatenacji stringów, dodanie funkcji print, dodanie argumentów typu int *a do przekazywania przez zmienną, dodanie identyfikatorów dla tablic, dodanie break i continue oraz dodanie wyrażeń niezbędnych do wprowadzenia dodatkowych funkcjonalności, o których więcej będzie niżej. Ponadto, w przeciwieństwie do języka Latte, program nie jest zbiorem funkcji, tylko zbiorem instrukcji.
+
+2. Opis konstrukcji składniowych:
+  Większość konstrukcji zapożyczona z gramatyki Latte. Przykładowe różnice: interpreter nie szuka funkcji main, tylko wykonuje po kolei podane instrukcje, np.:
+
+  int i ;
+  i = 0 ;
+  while (i < 10){
+    if (i % 2 == 0) print(i) ; 
+    i++ ;
+  }
+  print (i)
+
+  jest programem analogicznym do tego opisanego na stronie języka Latte z MRJP: https://www.mimuw.edu.pl/~ben/Zajecia/Mrj2019/Latte/
+
+  Dostępna będzie też funkcja print, przyjmująca (tak ja inne funkcje) listę argumentów oddzielonych przecinkami. Przyjmuje ona argumenty dowolnego typu, argumenty w obrębie jednego printa nie są oddzielane białymi znakami, cały print kończy się znakiem nowej linii:
+
+  int a = 3;
+  bool b = false;
+
+  print ("Wypisuję a: ", a)
+  print ("Wypisuję b: ", b)
+
+  Program zwraca 
+  Wypisuję a: 3
+  Wypisuję b: false
+
+  Inny przykład analogiczny do przykładu ze strony Latte, wypisywanie silni
+
+  int factr (int n) {
+  if (n < 2) 
+    return 1 ;
+  else 
+    return (n * factr(n-1)) ; 
+  }
+
+  print (factr (5));
+
+  Program wypisze:
+  120
+
+  Zmienną można zadeklarować bez inicjalizacji lub z. Zmienna niezainicjalowana nie ma początkowej wartości, więc jej użycie kończy się błędem. To samo tyczy się tablic.
+
+  int tab[10];
+  tab[4] = 7;
+  print (tab[5]);
+
+  "ERROR: tab[5] used but not initialized." 
+
+  Argumenty do funkcji można przekawywać przez wartość lub przez zmienną. Do przekazywania przez zmienną użwya się gwiazdki, jak w języku C:
+
+  int x = 0;
+  int y = 0;
+
+  void f (int *a) {
+    a++;
+  }
+
+  void g (int b) {
+    b++;
+  }
+
+  f(x);
+  g(y);
+
+  print (x, " ", y)
+
+  Program wypisze:
+  1 0
+
+  Deklaracja tablic jak w C++. dostępne mają być też funkcje operujące na tablicach oraz pętla for (w stylu matlabowym):
+
+  int binSearch (int [] tab, int len, int val) {
+    int pocz = 0;
+    int kon = len - 1;
+
+    while (kon - pocz > 1) {
+      mid = (kon + pocz) / 2;
+      if (tab[mid] < val) 
+        pocz = mid;
+      else
+        kon = mid;
+    }
+
+    if (tab [pocz] = val)
+      return pocz;
+
+    else 
+      return kon;
+  }
+
+  int tab[10];
+  
+  for (int i = 0:9) 
+    tab[i] = 3 * i;
+
+  idx = binSearch (tab, 10, 15);
+
+  print (idx);
+
+  Program powinien wypisać:
+  5
+
+  Zmienna w pętli for jest niemodyfikowalna:
+
+  for (int i = 1:10) {
+    i = 5;
+  }
+  
+  "ERROR: Tried to modify read-only variable"
+
+3. Nietypowe konstrukcje:
+  a) Przełączanie w tryb dynamicznych deklaracji funkcji:
+    Dostępne będą instrukcje "dynamic on", "dynamic off". Po wykonaniu instrukcji "dynamic on" program przełącza się w tryb, w którym nowe funkcje deklarowane będą wiązały zmienne w sposób dynamiczny. Wykonanie instrukcji "dynamic off" przywraca trym wiązania statycznego.
+    Prosty przykład:
+
+    int x = 5;
+    void f () {
+        x = x + 1;
+    }
+
+    dynamic on;
+    void g () {
+        x = 2 * x;
+    }
+
+    {
+        int x = 5;
+        f();
+        g();
+
+        print("Zmienna w środku: ", x);
+    }
+
+    print("Zmienna na zewnątrz: ", x);
+
+    Po zinterpretowaniu program powininen wypisać na standardowe wyjście:
+    Zmienna w środku: 10
+    Zmienna na zewnątrz: 6
+
+    Domyślnym ustawieniem na początku programu jest wyłączona dynamiczna deklaracja.
+
+    Obecny tryb wiązania zależy tylko od tego, przez którą instrukcję ostatnio przeszedł program (nie zaś od tego, w jakim scopie została ona wywołana). np.
+
+    dynamic on;
+    {
+      dynamic off;
+    }
+
+    // funkcja zadeklarowana w tym miejscu będzie wiązała zmienne statycznie //
+
+    To ostatnie wymaganie mogę zmienić, choć większość funkcjonalności programu będzie dotyczyła modyfikacji monady reader, więc uznałem, że fajnie byłoby dodać coś, co modyfikowałoby też monadę stanu.
+
+  b) Domyślne parametry funkcji wyliczane w trakcie wywołania.
+    Poza dostępny będzie typ argumentu postaci int x default e, gdzie e jest wyrażeniem. Jeżeli jest to jedyny argument funkcji, to będzie ona mogła być wywołana z jednym parametrem lub bezparametrowo. Jeżeli będzie ona wywołana z parametrem, to będzie się on zachowywał jak zwykły argument przekazywany przez wartość. W przeciwnym wypadku wywołana zostanie z argumentem będącym wartością e w trakcie wywołania. W szczególności, zmienne użyte w wartości domyślnej będą mogły być zainicjalizowane po deklaracji funkcji. 
+    Przykład:
+
+    int x;
+    int y;
+    int f (int z default x + y) {
+        x = x + 1;
+        y = y + z;
+    }
+
+    x = 0;
+    y = 0;
+
+    f(3);
+    print ("x = ", x, ", y = ", y);
+    f();
+    print ("x = ", x, ", y = ", y);
+    f();
+    print ("x = ", x, ", y = ", y);
+
+    Po zinterpretowaniu program wypisze:
+    x = 1, y = 3
+    x = 2, y = 7 
+    x = 3, y = 16
+
+    Jeżeli funkcja ma wiele argumentów, to parametry defaultowe powinny być podane na końcu, a podczas wywoływania podane argumenty są przypisywane do argumetnów domyślnych pokolei. Dla rozjaśnienia przykłady:
+
+    int f (string s, int n default 7, int m) {...}
+
+    Program zwróci błąd:
+
+    --- ERROR: Default argument preceeding non-default argument ---
+
+    int f (int n default 3, int m default 5) {
+        print (n);
+        print (m);
+    }
+
+    f(10);
+
+    Program wypisze:
+    10
+    5
+
+
+  c) Wyjątki z nazwami i wagami:
+    Będzie możliwość zadeklarowania wyjątków wraz z nazwami poleceniem exception x, gdzie x to nazwa wyjątku. Będą również dostępna instrukcje postaci try Stmt1 catch x(e) Stmt2 oraz throw x(e), gdzie e jest wyrażeniem ewaluującym się do wartości typu int. Pierwsza z tych instrukcji w pierwszej kolejności oblicza wartość e, a następnie wyłapuje wyjątki o nazwie x oraz wadze co najmniej e. Z kolei instrukcja throw x(e) rzuca wyjątek o wadze e i nazwie x. Jeśli istnieje blok try-catch, który łapie wyjątek o tej samej nazwie i zakresie wag, do którego łapie się e, to blok Stmt1 zostaje przerwany i uruchomiony zostaje blok Stmt2. W przeciwnym wypadku instrukcje wykonują się dalej. Jeżeli istnieje kilka bloków, które mogłyby wyłapać rzucony wyjątek, to wyjątek jest przechwytywany przez najbardziej wewnętrzny blok. Kilka przykładów:
+
+    Przykład1:
+ 
+    int y = 100;
+    exception x;
+    try {
+      while (true) {
+        throw x(y - 10);
+        y = y + 1;
+      }
+    }catch x(y)
+      print (y);
+
+    Program powinien wypisać:
+    110
+
+    Przykład2:
+
+    exception x;
+    int i = 0;
+    int j = 0;
+    try {
+      try {
+        while (true) {
+          j = j + 1;
+          i = i + 1;
+          throw x(i);
+        }
+      } catch x(5) {
+        print (j);
+        while (true) {
+          j = j + 2;
+          i = i + 1;
+          throw x(i);
+        }
+      }
+    } catch x(10) { 
+      print(j);
+    }
+
+    Program powinien wypiasać:
+    5
+    15
+
+4. Tabelka funkcjonalności:
+  Na 15 punktów
+  01 (trzy typy)
+  02 (literały, arytmetyka, porównania)
+  03 (zmienne, przypisanie)
+  04 (print)
+  05 (while, if)
+  06 (funkcje lub procedury, rekurencja)
+  07 (przez zmienną i przez wartość)
+  Na 20 punktów
+  09 (przesłanianie i statyczne wiązanie)
+  10 (obsługa błędów wykonania)
+  11 (funkcje zwracające wartość)
+  Na 30 punktów
+  12 (4) (statyczne typowanie)
+  13 (2) (funkcje zagnieżdżone ze statycznym wiązaniem)
+  14 (1) (rekordy/tablice/listy)
+  16 (1) (break, continue)
+  ponadto:
+  (1) drugi z pary punktów 7-8, czyli w tym wypadku zmienne read-only + pętla for
+  (2) opcja dynamic on / dynamic off
+  (2) argumenty z defaultowymi wartościami
+  (3) wyjątki z wagami
+
+Razem: max 36, ale w praktyce min(30, to co uda mi się zrealizować)

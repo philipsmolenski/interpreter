@@ -1,0 +1,7 @@
+// brak nawiasów przy aplikacji funkcji
+
+a = 3;
+print a;
+
+//PARSE ERROR: 
+//"syntax error at line 4, column 7 before `a'"

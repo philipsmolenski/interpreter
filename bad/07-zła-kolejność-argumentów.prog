@@ -1,0 +1,9 @@
+// domyślne argumenty powinny występować po zwykłych
+
+int f (int a, int x default 3, int b) {
+  print(a + 2 * x + b);
+}
+
+f(1,2,3);
+
+//STATIC ERROR: Default argument preceeding non-default argument

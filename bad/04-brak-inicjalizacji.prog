@@ -1,0 +1,8 @@
+// Zmienna a niezainicjalizowana
+
+int a;
+int b = 3;
+
+print (a + b);
+
+//DYNAMIC ERROR: Variable a declared but uninitialized

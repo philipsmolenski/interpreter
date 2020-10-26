@@ -1,0 +1,7 @@
+// Zmienna a niezdefiniowana
+
+a = 3;
+print (a);
+
+// STATIC ERROR: Variable a is undefined
+

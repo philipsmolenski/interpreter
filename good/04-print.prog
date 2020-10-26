@@ -1,0 +1,12 @@
+// Działanie printa było już widać wcześniej. Argumenty oddzielone przecinkami wypisywane są po kolei. Na koniec jest znak nowej linii.
+
+int a = 3;
+bool b = true;
+string s = "kot";
+
+print (a," " ,b ," " ,s ," " ,3 + 4 ," " ,"rab" ++ "arbar" ," " ,7 > 2);
+print ("To jest w nowej linii");
+
+//3 True kot 7 rabarbar True
+//To jest w nowej linii
+

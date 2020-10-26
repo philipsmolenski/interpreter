@@ -1,0 +1,10 @@
+// w ifie liczba zamiast boola
+
+int a = 2;
+
+if (a - 2) {
+  int b = 3;
+  print (b);
+}
+
+// STATIC ERROR: Non-boolean argument passed as if condition

@@ -1,0 +1,19 @@
+// Poniższy przykład ilustruje działanie brak i continue (te operacje są dostępne zarówno dla pętli while jak i dla pętli for)
+
+for (int i = 0:100) {
+  if (i % 3 != 0)
+    continue;
+
+  if (i > 15)
+    break;
+
+  print(i);
+}
+
+// 0
+// 3
+// 6
+// 9
+// 12
+// 15
+

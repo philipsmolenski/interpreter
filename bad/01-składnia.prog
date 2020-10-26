@@ -1,0 +1,7 @@
+// brak średnika
+int a = 2;
+int b = 3
+print (b);
+
+// PARSE ERROR: 
+// "syntax error at line 4, column 1 before `print'"

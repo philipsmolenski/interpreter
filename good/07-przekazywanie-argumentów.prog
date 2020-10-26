@@ -1,0 +1,20 @@
+//Argumenty można przekazać przez wartość, albo przez referencję
+
+void f(int x, int *y) {
+	x++;
+	y++;
+}
+
+int a = 0;
+int b = 0;
+
+f(a, b);
+
+print (a ," " ,b);
+
+f(a, b);
+
+print (a ," " ,b);
+
+//0 1
+//0 2
