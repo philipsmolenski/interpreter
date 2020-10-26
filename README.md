@@ -2,16 +2,14 @@ Uruchamianie:
 
 Aby skompilować interpreter należy użyć polecenia make. Jeżeli skompilować interpreter na maszynie students, należy zmienić następujące 3 linie w pliku Makefile:
 
-bnfc --haskell -p Big Big.cf  --->  /home/students/inf/PUBLIC/MRJP/bin/students/bnfc --haskell -p Big Big.cf
+bnfc --haskell -p Big Big.cf  --->  /home/students/inf/PUBLIC/MRJP/bin/students/bnfc --haskell -p Big Big.cf <br/>
+ghc --make $< -o $@           --->  /home/students/inf/PUBLIC/MRJP/ghc-8.2.2/bin/ghc --make $< -o $@ <br/>
+ghc --make $< -o interpreter  --->  /home/students/inf/PUBLIC/MRJP/ghc-8.2.2/bin/ghc --make $< -o interpreter <br/>
 
-ghc --make $< -o $@           --->  /home/students/inf/PUBLIC/MRJP/ghc-8.2.2/bin/ghc --make $< -o $@
-
-ghc --make $< -o interpreter  --->  /home/students/inf/PUBLIC/MRJP/ghc-8.2.2/bin/ghc --make $< -o interpreter
-
-oraz wykonać polecenia:
-cabal update
-cabal install mtl
-cabal install transformers
+oraz wykonać polecenia: <br/>
+cabal update <br/>
+cabal install mtl <br/>
+cabal install transformers <br/>
 
 Opis rozwiązania:
 
