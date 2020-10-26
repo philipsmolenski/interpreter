@@ -45,26 +45,26 @@ Statyczna kontrola typów zawsze terminuje. Dzieje się tak, bo ciała pętli fo
 
 W rozwiązaniu zrealizowano wszystkie funkcjonalności zadeklarowane w deklaracja.txt oprócz tablic, to znaczy:
 
-Na 15 punktów
-01 (trzy typy)
-02 (literały, arytmetyka, porównania)
-03 (zmienne, przypisanie)
-04 (print)
-05 (while, if)
-06 (funkcje lub procedury, rekurencja)
-07 (przez zmienną i przez wartość)
-Na 20 punktów
-09 (przesłanianie i statyczne wiązanie)
-10 (obsługa błędów wykonania)
-11 (funkcje zwracające wartość)
-Na 30 punktów
-12 (4) (statyczne typowanie)
-13 (2) (funkcje zagnieżdżone ze statycznym wiązaniem)
-16 (1) (break, continue)
-ponadto:
-(1) drugi z pary punktów 7-8, czyli w tym wypadku zmienne read-only + pętla for
-(2) opcja dynamic on / dynamic off <- ale to czy obecnie deklarujemy w trybie statycznym czy dynamicznym decyduje się w sposób "środowiskowy" a nie "stanowy" (zob. good/dodatek1-dynamiczne-deklaracje.prog
-(2) argumenty z defaultowymi wartościami <- to chyba miało nie być punktowane (zgodnie z odpowiedzą na deklarację) ale napisałem to przed tą odpowiedzią i już zostawiłem.
+Na 15 punktów <br/>
+01 (trzy typy) <br/>
+02 (literały, arytmetyka, porównania) <br/>
+03 (zmienne, przypisanie) <br/>
+04 (print) <br/>
+05 (while, if) <br/>
+06 (funkcje lub procedury, rekurencja) <br/>
+07 (przez zmienną i przez wartość) <br/>
+Na 20 punktów <br/>
+09 (przesłanianie i statyczne wiązanie) <br/>
+10 (obsługa błędów wykonania) <br/>
+11 (funkcje zwracające wartość) <br/>
+Na 30 punktów <br/>
+12 (4) (statyczne typowanie) <br/>
+13 (2) (funkcje zagnieżdżone ze statycznym wiązaniem) <br/>
+16 (1) (break, continue) <br/>
+ponadto: <br/>
+(1) drugi z pary punktów 7-8, czyli w tym wypadku zmienne read-only + pętla for <br/>
+(2) opcja dynamic on / dynamic off <- ale to czy obecnie deklarujemy w trybie statycznym czy dynamicznym decyduje się w sposób "środowiskowy" a nie "stanowy" (zob. good/dodatek1-dynamiczne-deklaracje.prog) <br/>
+(2) argumenty z defaultowymi wartościami <- to chyba miało nie być punktowane (zgodnie z odpowiedzą na deklarację) ale napisałem to przed tą odpowiedzią i już zostawiłem. <br/>
 (3) wyjątki z wagami
 
 Razem więc zrealizowane podpunkty za 32 punkty: zaoferowane 33 - 1 za brak tablic
